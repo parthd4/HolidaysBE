@@ -14,18 +14,12 @@ const validateSignature = (req, next) => {
   }
 
   const requestBody =
-    req.body === undefined || req.body === null || req.body === ''
+    req.body === undefined ||
+    req.body === null ||
+    req.body === '' ||
+    method === 'GET'
       ? ''
       : JSON.stringify(req.body);
-
-  console.log({
-    signatureVersion: 'v3',
-    signature: signatureV3,
-    method,
-    requestBody,
-    url,
-    timestamp,
-  });
 
   const validV3 = Signature.isValid({
     signatureVersion: 'v3',
