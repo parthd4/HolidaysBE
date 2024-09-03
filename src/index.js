@@ -215,8 +215,4 @@ app.use((err, req, res, next) => {
     .send({ error: err.message || defaultErrorMessage, statusCode });
 });
 
-app.listen(constants.PORT, () =>
-  console.log(
-    `=== Starting your app on http://localhost:${constants.PORT} ===`,
-  ),
-);
+app.listen(constants.PORT, () => console.log(`=== Starting your app ===`));
