@@ -2,7 +2,7 @@ const { Signature } = require('@hubspot/api-client');
 const CustomError = require('./errors');
 
 const validateSignature = (req, next) => {
-  const url = `https://${req.header('host')}${req.url}`;
+  const url = `${req.protocol}://${req.header('host')}${req.url}`;
   const method = req.method;
   const clientSecret = process.env.CLIENT_SECRET;
   const signatureV3 = req.header('X-HubSpot-Signature-v3');
@@ -20,15 +20,6 @@ const validateSignature = (req, next) => {
     method === 'GET'
       ? ''
       : JSON.stringify(req.body);
-
-  console.log({
-    signatureVersion: 'v3',
-    signature: signatureV3,
-    method,
-    requestBody,
-    url,
-    timestamp,
-  });
 
   const validV3 = Signature.isValid({
     signatureVersion: 'v3',

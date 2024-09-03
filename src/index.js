@@ -16,6 +16,7 @@ const {
 
 const app = express();
 
+app.enable('trust proxy');
 app.use(bodyParser.json({ strict: false }));
 app.use(
   bodyParser.urlencoded({
@@ -109,6 +110,7 @@ app.get('/error', (req, res) => {
 app.get('/:country/upcomingHolidays', async (req, res, next) => {
   try {
     validateSignature(req);
+    console.log(req.headers);
     const country = decodeURIComponent(req.params.country);
     const result = await getUpcomingHolidays(country);
     res.json(result);
