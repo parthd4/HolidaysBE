@@ -110,7 +110,6 @@ app.get('/error', (req, res) => {
 app.get('/:country/upcomingHolidays', async (req, res, next) => {
   try {
     validateSignature(req);
-    console.log(req.headers);
     const country = decodeURIComponent(req.params.country);
     const result = await getUpcomingHolidays(country);
     res.json(result);
@@ -141,6 +140,7 @@ app.post('/saveDiscountAsContactNote', async (req, res, next) => {
     const headers = {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
+      traceparent: req.headers.traceparent,
     };
 
     await saveDiscountToContactNote({
@@ -167,6 +167,7 @@ app.get('/contactName/:id', async (req, res, next) => {
     const headers = {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
+      traceparent: req.headers.traceparent,
     };
     const { firstname, lastname } = await getContactInfo({
       contactId,
@@ -189,6 +190,7 @@ app.post('/saveGreetingCard', async (req, res, next) => {
     const headers = {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
+      traceparent: req.headers.traceparent,
     };
 
     await sendGreetingCard({
