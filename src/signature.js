@@ -18,6 +18,15 @@ const validateSignature = (req, next) => {
       ? ''
       : JSON.stringify(req.body);
 
+  console.log({
+    signatureVersion: 'v3',
+    signature: signatureV3,
+    method,
+    requestBody,
+    url,
+    timestamp,
+  });
+
   const validV3 = Signature.isValid({
     signatureVersion: 'v3',
     signature: signatureV3,
