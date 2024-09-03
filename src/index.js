@@ -90,7 +90,7 @@ app.get('/oauth-callback', async (req, res) => {
 
     // Once the tokens have been retrieved, use them to make a query
     // to the HubSpot API
-    res.redirect(`/`);
+    res.redirect(`/successfulInstall`);
   }
 });
 
@@ -104,6 +104,23 @@ app.get('/', async (req, res) => {
 app.get('/error', (req, res) => {
   res.setHeader('Content-Type', 'text/html');
   res.write(`<h4>Error: ${req.query.msg}</h4>`);
+  res.end();
+});
+
+app.get('/successfulInstall', (req, res) => {
+  res.setHeader('Content-Type', 'text/html');
+  res.write(
+    `<h2>The Holidays app has successfully been installed on your HubSpot account</h2>`,
+  );
+  res.write(
+    `<p>Now you can add a Holidays CRM card to your contacts to see upcoming holidays, generate holiday discount codes, and send greeting cards.</p>`,
+  );
+  res.write(
+    `<p>To set up your card, add the Holidays app card to your Contact record middle column</p>`,
+  );
+  res.write(
+    `<a href="https://knowledge.hubspot.com/object-settings/customize-records"><p>Learn more</p></a>`,
+  );
   res.end();
 });
 
